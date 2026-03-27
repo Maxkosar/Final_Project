@@ -35,10 +35,7 @@ public class PlayerControler : MonoBehaviour
             {
                 
                 sprite.flipX = true;
-                Vector2 SwordPosition = new Vector2(0.2, 0);
-                transform.rotation = Quaternion.Euler(0, 0, -32f);
-                sword.transform.position = nuevaPosicion;
-                sword.transform.rotation = nuevaRotacion;
+
 
             }
             if (horizontalInput < 0)
