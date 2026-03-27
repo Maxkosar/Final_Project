@@ -8,6 +8,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] float jumpForce=7f;
     bool isGrounded = false;
     [SerializeField] LayerMask groundLayer; 
+    Animator miAnimator;
     Rigidbody2D rb;
     [SerializeField] private List<SpriteRenderer> sprite1;
     [SerializeField] private GameObject sword;
@@ -15,6 +16,7 @@ public class PlayerControler : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        miAnimator = GetComponent<Animator>();
         
     }
 
@@ -45,6 +47,14 @@ public class PlayerControler : MonoBehaviour
 
             }
         }
+    float mover = Input.GetAxis("Horizontal");
+
+    // Si nos movemos, activamos la animación de correr
+    if (mover != 0) {
+        miAnimator.SetBool("Run", true);
+    } else {
+        miAnimator.SetBool("Run", false);
+    }
      // Almacenando el colisionador en una variable separada para facilitar su uso
     Collider2D col = GetComponent<Collider2D>();
  // Creando un área circular debajo de los pies del personaje

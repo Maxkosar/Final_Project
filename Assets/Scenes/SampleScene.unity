@@ -196,11 +196,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 95898481864777010, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 95898481864777010, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 95898481864777010, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
+      propertyPath: m_CullingMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 95898481864777010, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 212074183272344212, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
       propertyPath: m_FlipX
@@ -316,6 +324,7 @@ MonoBehaviour:
   - {fileID: 2030657214}
   - {fileID: 1539524900}
   - {fileID: 308486182}
+  sword: {fileID: 0}
 --- !u!61 &413751174
 BoxCollider2D:
   m_ObjectHideFlags: 0
