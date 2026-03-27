@@ -9,13 +9,13 @@ public class PlayerControler : MonoBehaviour
     bool isGrounded = false;
     [SerializeField] LayerMask groundLayer; 
     Rigidbody2D rb;
-    [SerializeField] private SpriteRenderer sprite1;
-    
+    [SerializeField] private List<SpriteRenderer> sprite1;
+    [SerializeField] private GameObject sword;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        sprite1 = GetComponent<SpriteRenderer>();
+        
     }
 
     // Update is called once per frame
@@ -29,12 +29,25 @@ public class PlayerControler : MonoBehaviour
     {
     rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
+    foreach (var sprite in sprite1)
+        {
+            if (horizontalInput > 0)
+            {
+                
+                sprite.flipX = true;
+                Vector2 SwordPosition = new Vector2(0.2, 0);
+                transform.rotation = Quaternion.Euler(0, 0, -32f);
+                sword.transform.position = nuevaPosicion;
+                sword.transform.rotation = nuevaRotacion;
 
-    if (horizontalInput > 0)
-    {
-        sprite1.flipX = !sprite1.flipX;
+            }
+            if (horizontalInput < 0)
+            {
+                
+                sprite.flipX = false;
 
-    }
+            }
+        }
      // Almacenando el colisionador en una variable separada para facilitar su uso
     Collider2D col = GetComponent<Collider2D>();
  // Creando un área circular debajo de los pies del personaje
