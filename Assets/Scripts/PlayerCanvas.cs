@@ -7,14 +7,16 @@ public class PlayerCanvas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
 
     [Header("Timer Settings")]
-    [SerializeField] private float totalTime = 180f; // 3 minutos en segundos
+    [SerializeField] private float totalTime = 180f;
+
+    [Header("Referencias")]
+    [SerializeField] private ArenaController arenaController;
 
     private float currentTime;
-    private bool isRunning = true;
+    private bool  isRunning = true;
 
     void Start()
     {
-        // Si no se asignó por Inspector, lo busca automáticamente
         if (timerText == null)
             timerText = GetComponentInChildren<TextMeshProUGUI>();
 
@@ -31,7 +33,7 @@ public class PlayerCanvas : MonoBehaviour
         if (currentTime <= 0f)
         {
             currentTime = 0f;
-            isRunning = false;
+            isRunning   = false;
             OnTimerFinished();
         }
 
@@ -49,10 +51,12 @@ public class PlayerCanvas : MonoBehaviour
     {
         timerText.text = "00:00";
         Debug.Log("¡Tiempo agotado!");
-        // Aquí podés agregar lógica: fin de partida, evento, etc.
+
+        // Avisamos al ArenaController para que declare el ganador
+        if (arenaController != null)
+            arenaController.OnTimeUp();
     }
 
-    // Métodos públicos para controlar el timer desde otros scripts
     public void PauseTimer()  => isRunning = false;
     public void ResumeTimer() => isRunning = true;
     public void ResetTimer()  { currentTime = totalTime; isRunning = true; }
