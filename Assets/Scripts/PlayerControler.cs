@@ -3,32 +3,42 @@ using UnityEngine;
 
 public class PlayerControler : MonoBehaviour
 {
-    [SerializeField] float speed      = 5f;
-    [SerializeField] float jumpForce  = 7f;
-    bool isGrounded = false;
+    [Header("Movimiento")]
+    [SerializeField] float speed     = 5f;
+    [SerializeField] float jumpForce = 7f;
 
+    [Header("Teclas configurables")]
+    [SerializeField] private KeyCode keyLeft  = KeyCode.A;
+    [SerializeField] private KeyCode keyRight = KeyCode.D;
+    [SerializeField] private KeyCode keyJump  = KeyCode.Space;
+
+    [Header("Referencias")]
     [SerializeField] LayerMask groundLayer;
-    Animator miAnimator;
-    Rigidbody2D rb;
     [SerializeField] private List<SpriteRenderer> sprite1;
     [SerializeField] private GameObject sword;
 
-    private float speedMultiplier = 1f;  // modificado por ClockItem
+    private bool    isGrounded      = false;
+    private float   speedMultiplier = 1f;
+    private Animator    miAnimator;
+    private Rigidbody2D rb;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb         = GetComponent<Rigidbody2D>();
         miAnimator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        // Movimiento horizontal con teclas configurables
+        float horizontalInput = 0f;
+        if (Input.GetKey(keyRight)) horizontalInput =  1f;
+        if (Input.GetKey(keyLeft))  horizontalInput = -1f;
 
-        // Velocidad afectada por el multiplicador del reloj
         rb.velocity = new Vector2(horizontalInput * speed * speedMultiplier, rb.velocity.y);
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        // Salto
+        if (Input.GetKeyDown(keyJump) && isGrounded)
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 
         // Flip del sprite
@@ -38,7 +48,7 @@ public class PlayerControler : MonoBehaviour
             if (horizontalInput < 0) sprite.flipX = false;
         }
 
-        // Animación de correr
+        // Animación
         miAnimator.SetBool("Run", horizontalInput != 0);
 
         // Detección de suelo
@@ -50,6 +60,5 @@ public class PlayerControler : MonoBehaviour
         );
     }
 
-    // Llamado por ClockItem para afectar la velocidad
     public void SetSpeedMultiplier(float multiplier) => speedMultiplier = multiplier;
 }
